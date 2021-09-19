@@ -1,10 +1,13 @@
 import express from "express";
 import { router } from "./routers";
+import { config } from "dotenv";
 
 class Server {
   constructor() {
+    config();
     this.app = express();
-    this.setRoutes()
+    this.app.use(express.json());
+    this.setRoutes();
   }
   setRoutes() {
     this.app.use(router);
