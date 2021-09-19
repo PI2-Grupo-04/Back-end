@@ -10,7 +10,7 @@ const authMiddleware = async (req, res, next) => {
     if (response) {
       const user = await User.findById(response.id);
       req.user = user;
-      next();
+      return next();
     }
   }
 
