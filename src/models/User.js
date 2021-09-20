@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { genSalt, hash, compare } from "bcrypt";
+import Restaurant from "./Restaurant";
 
 const UserSchema = new Schema(
   {
@@ -18,6 +19,9 @@ const UserSchema = new Schema(
       unique: true,
     },
     password: { type: String, required: true, select: false },
+    restaurants: [
+      { type: Schema.Types.ObjectId, ref: "Restaurant", required: false },
+    ],
   },
   { timestamps: true }
 );
@@ -33,9 +37,11 @@ UserSchema.pre("save", async function (next) {
   }
 });
 
-UserSchema.methods.comparePassword = async function (password) {
-  const match = await compare(password, this.password);
+UserSchema.methods.comparePassword = async function (candidate_password) {
+  const { _, password } = await User.findById(this.id).select("password");
+  const match = await compare(candidate_password, password);
   return match;
 };
 
-export default model("User", UserSchema);
+const User = model("User", UserSchema);
+export default User;
