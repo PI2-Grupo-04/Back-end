@@ -1,5 +1,5 @@
 import { Router } from "express";
-import authMiddleware from "../middleware/jwtAuthMiddleware";
+import authMiddleware from "../middleware/jwt.middleware";
 import restaurantMiddleware from "../middleware/restaurant.middleware";
 import RestaurantController from "../controllers/RestaurantController";
 
