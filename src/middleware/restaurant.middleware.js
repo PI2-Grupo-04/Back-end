@@ -1,4 +1,3 @@
-import User from "../models/User";
 import Restaurant from "../models/Restaurant";
 
 const restaurantMiddleware = async (req, res, next) => {
