@@ -7,13 +7,13 @@ class AuthController {
 
     try {
       await User.create({ username, email, password });
-      res.json({
+      return res.json({
         status: "success",
         data: null,
         message: "Registration Successful",
       });
     } catch (error) {
-      res
+      return res
         .status(401)
         .json({ status: "error", data: null, message: error.message });
     }

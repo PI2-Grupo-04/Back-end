@@ -6,7 +6,6 @@ const restaurantMiddleware = async (req, res, next) => {
   const includes = user.restaurants.includes(id);
 
   if (includes) {
-    req.restaurant = await Restaurant.findById(id);
     return next();
   }
 

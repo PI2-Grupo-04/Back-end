@@ -1,4 +1,5 @@
 import Restaurant from "../models/Restaurant";
+import User from "../models/User";
 
 class RestaruantController {
   create = async (req, res) => {
@@ -16,7 +17,6 @@ class RestaruantController {
   };
 
   retrieve = async (req, res) => {
-    console.log(req.params.id);
     const restaurant = await Restaurant.findById(req.params.id);
 
     return res.json({
@@ -26,8 +26,8 @@ class RestaruantController {
     });
   };
 
-  update = (req, res) => {
-    const restaurant = req.restaurant;
+  update = async (req, res) => {
+    const restaurant = await Restaurant.findById(req.params.id);
     const { name } = req.body;
     restaurant.name = name;
     restaurant.save();
@@ -40,8 +40,7 @@ class RestaruantController {
   };
 
   delete = async (req, res) => {
-    const restaurant = req.restaurant;
-    await Restaurant.deleteOne({ id: restaurant.id });
+    await Restaurant.deleteOne({ id: req.params.id });
 
     return res.json({
       status: "success",

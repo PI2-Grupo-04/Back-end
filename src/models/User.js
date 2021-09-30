@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import { genSalt, hash, compare } from "bcrypt";
-import Restaurant from "./Restaurant";
 
 const UserSchema = new Schema(
   {
