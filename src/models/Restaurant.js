@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import User from "./User";
+import Menu from "./Menu";
 
 const RestaurantSchema = new Schema(
   {
@@ -16,9 +17,13 @@ RestaurantSchema.pre(
     const id = this.getFilter()["id"];
     const user = await User.findOne({ restaurants: { _id: id } });
     user.restaurants = user.restaurants.filter((item) => item != id);
-    user.save()
+    user.save();
+
+    const restaurant = await Restaurant.findById(id);
+    await Menu.deleteMany({ id: { $in: restaurant.menus } });
+
     next();
   }
 );
-
-export default model("Restaurant", RestaurantSchema);
+const Restaurant = model("Restaurant", RestaurantSchema);
+export default Restaurant;
