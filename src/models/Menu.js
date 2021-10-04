@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import Restaurant from "./Restaurant";
+import { ItemSchema } from "./Item";
 
 const MenuSchema = new Schema(
   {
@@ -7,7 +8,7 @@ const MenuSchema = new Schema(
       type: String,
       required: [true, "can't be blank"],
     },
-    items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+    items: [ItemSchema],
   },
   { timestamps: true }
 );

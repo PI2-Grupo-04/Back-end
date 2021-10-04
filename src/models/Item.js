@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const ItemSchema = new Schema(
+export const ItemSchema = new Schema(
   {
     name: {
       type: String,

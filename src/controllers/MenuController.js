@@ -50,6 +50,50 @@ class MenuController {
       message: "Menu Deleted",
     });
   };
+
+  addItem = async (req, res) => {
+    const menu = await Menu.findById(req.params.id);
+    const { name, price, description, preparation_time } = req.body;
+    menu.items.push({ name, price, description, preparation_time });
+    menu.save();
+
+    return res.json({
+      status: "success",
+      data: null,
+      message: "Item Added",
+    });
+  };
+
+  updateItem = async (req, res) => {
+    const { id, item_id } = req.params;
+    const { name, price, description, preparation_time } = req.body;
+    const menu = await Menu.findById(id);
+    const item = menu.items.id(item_id);
+    item.name = name;
+    item.price = price;
+    item.description = description;
+    item.preparation_time = preparation_time;
+    menu.save();
+
+    return res.json({
+      status: "success",
+      data: null,
+      message: "Item Updated",
+    });
+  };
+
+  deleteItem = async (req, res) => {
+    const { id, item_id } = req.params;
+    const menu = await Menu.findById(id);
+    menu.items.id(item_id).remove();
+    menu.save();
+
+    return res.json({
+      status: "success",
+      data: null,
+      message: "Item Deleted",
+    });
+  };
 }
 
 export default new MenuController();
