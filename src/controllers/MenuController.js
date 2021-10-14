@@ -2,6 +2,17 @@ import Menu from "../models/Menu";
 import Restaurant from "../models/Restaurant";
 
 class MenuController {
+  list = async (req, res) => {
+    const restaurant = await Restaurant.findById(req.params.id);
+    const menus = await Menu.find({ id: { $in: restaurant.menus } });
+
+    return res.json({
+      status: "success",
+      data: menus,
+      message: null,
+    });
+  };
+
   create = async (req, res) => {
     const { name } = req.body;
     const restaurant = await Restaurant.findById(req.params.id);
