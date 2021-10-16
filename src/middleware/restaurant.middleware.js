@@ -1,6 +1,4 @@
-import Restaurant from "../models/Restaurant";
-
-const restaurantMiddleware = async (req, res, next) => {
+const restaurantMiddleware = (req, res, next) => {
   const id = req.params.id;
   const user = req.user;
   const includes = user.restaurants.includes(id);

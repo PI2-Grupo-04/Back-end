@@ -41,16 +41,40 @@ class OrderController {
 
     return res.json({
       status: "success",
-      data: {
-        order: null,
-      },
+      data: null,
       message: "Order Cancelled",
     });
   };
 
-  confirm = (req, res) => {};
+  confirm = async (req, res) => {
+    const { order_id } = req.params;
 
-  reject = (req, res) => {};
+    const order = await Order.findById(order_id);
+
+    order.status = "Confirmed";
+    order.save();
+
+    return res.json({
+      status: "success",
+      data: null,
+      message: "Order Confirmed",
+    });
+  };
+
+  reject = async (req, res) => {
+    const { order_id } = req.params;
+
+    const order = await Order.findById(order_id);
+
+    order.status = "Rejected";
+    order.save();
+
+    return res.json({
+      status: "success",
+      data: null,
+      message: "Order Rejected",
+    });
+  };
 }
 
 export default new OrderController();
