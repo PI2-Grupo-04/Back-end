@@ -1,7 +1,18 @@
 import Restaurant from "../models/Restaurant";
-import User from "../models/User";
+import Order from "../models/Order";
 
 class RestaruantController {
+  orders = async (req, res) => {
+    const { id } = req.params;
+    const orders = await Order.find({ restaurant: id, status: "Awaiting" });
+
+    return res.json({
+      status: "success",
+      data: { orders },
+      message: null,
+    });
+  };
+
   create = async (req, res) => {
     const { name } = req.body;
     const user = req.user;

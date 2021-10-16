@@ -14,6 +14,7 @@ router.use(authMiddleware);
 router.post("/", RestaurantController.create);
 router.put("/:id", [restaurantMiddleware], RestaurantController.update);
 router.delete("/:id", [restaurantMiddleware], RestaurantController.delete);
+router.get("/:id/orders/", RestaurantController.orders);
 
 router.post("/:id/menu/", [restaurantMiddleware], MenuController.create);
 
