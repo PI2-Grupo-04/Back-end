@@ -20,9 +20,6 @@ wsServer = new WebSocketServer({
 
 //Chamado quando um client deseja conectar
 wsServer.on('request', (request) => {
-    //Estado do led: false para desligado e true para ligado
-    let state = false;
-
     //Aceita a conexão do client
     let client = request.accept(null, request.origin);
 
@@ -37,11 +34,8 @@ wsServer.on('request', (request) => {
 
     //Cria uma função que será executada a cada 1 segundo (1000 millis) para enviar o estado do led
     let interval = setInterval(() => {
-        //Envia para o client "ON" ou "OFF" dependendo do estado atual da variável state
-        //client.sendUTF(state? "ON" : "OFF");
+        //Envia para o client 
 	client.sendUTF("base");
-        //Inverte o estado
-        //state = !state;
     }, 1000);//Tempo entre chamadas => 1000 millis = 1 segundo 
 
     //Chamado quando a conexão com o client é fechada
