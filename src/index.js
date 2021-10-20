@@ -1,7 +1,7 @@
 import app from "./server";
 import mongoose from "mongoose";
 
-const dbUrl = "mongodb://root:password@mongo:27017";
+const dbUrl = "mongodb://root:password@mongo:27017/database?authSource=admin";
 
 mongoose
   .connect(dbUrl, {
