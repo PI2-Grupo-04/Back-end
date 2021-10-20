@@ -25,4 +25,16 @@ describe("AuthController", () => {
 
     expect(response.body.status).toBe("success");
   });
+
+  it("should be able to log in", async () => {
+    const response = await supertest(app.app)
+      .post("/auth/login")
+      .send({
+        username: "user",
+        password: "password",
+      })
+      .expect(200);
+
+    expect(response.body.status).toBe("success");
+  });
 });
