@@ -12,6 +12,8 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
+let token = "";
+
 describe("AuthController", () => {
   it("should be able to register", async () => {
     const response = await supertest(app.app)
@@ -33,6 +35,17 @@ describe("AuthController", () => {
         username: "user",
         password: "password",
       })
+      .expect(200);
+
+    expect(response.body.status).toBe("success");
+
+    token = response.body.data.token;
+  });
+
+  it("should retrieve logged in user", async () => {
+    const response = await supertest(app.app)
+      .get("/auth/user")
+      .set("Authorization", `Bearer ${token}`)
       .expect(200);
 
     expect(response.body.status).toBe("success");
