@@ -81,6 +81,57 @@ describe("MenuController", () => {
     expect(response.body.message).toBe("Menu Updated");
   });
 
+  it("should be able to add Item", async () => {
+    const menu = await Menu.findOne({ name: "Burgerss" });
+
+    const response = await supertest(app.app)
+      .post(`/menu/${menu.id}/item`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Cheese Burger",
+        price: 5,
+        description: "Hamburger with cheese",
+        preparation_time: 5,
+      })
+      .expect(200);
+
+    expect(response.body.status).toBe("success");
+    expect(response.body.message).toBe("Item Added");
+  });
+
+  it("should be able to update Item", async () => {
+    const menu = await Menu.findOne({ name: "Burgerss" });
+    const id = menu.items[0]._id;
+
+    const response = await supertest(app.app)
+      .put(`/menu/${menu.id}/item/${id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "XL Cheese Burgerrer",
+        price: 30,
+        description: "Extra Large Hamburger with cheeseee",
+        preparation_time: 30,
+      })
+      .expect(200);
+
+    expect(response.body.status).toBe("success");
+    expect(response.body.message).toBe("Item Updated");
+  });
+
+  it("should be able to delete Item", async () => {
+    const menu = await Menu.findOne({ name: "Burgerss" });
+    const id = menu.items[0]._id;
+
+    const response = await supertest(app.app)
+      .delete(`/menu/${menu.id}/item/${id}`)
+      .set("Authorization", `Bearer ${token}`)
+
+      .expect(200);
+
+    expect(response.body.status).toBe("success");
+    expect(response.body.message).toBe("Item Deleted");
+  });
+
   it("should be able to delete", async () => {
     const menu = await Menu.findOne({ name: "Burgerss" });
 
@@ -92,10 +143,4 @@ describe("MenuController", () => {
     expect(response.body.status).toBe("success");
     expect(response.body.message).toBe("Menu Deleted");
   });
-
-  it("should be able to add Item", () => {});
-
-  it("should be able to update Item", () => {});
-
-  it("should be able to delete Item", () => {});
 });
