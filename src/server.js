@@ -1,12 +1,14 @@
 import express from "express";
 import { router } from "./routers";
 import { config } from "dotenv";
+import cors from "./services/cors";
 
 class Server {
   constructor() {
     config();
     this.app = express();
     this.app.use(express.json());
+    this.app.use(cors);
     this.setRoutes();
   }
   setRoutes() {
