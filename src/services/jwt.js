@@ -1,7 +1,7 @@
 import { sign, verify } from "jsonwebtoken";
 
 export const generateAccessToken = (id) => {
-  return sign({ id }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+  return sign({ id }, process.env.TOKEN_SECRET);
 };
 
 export const authenticateToken = async (token) => {

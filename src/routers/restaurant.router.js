@@ -15,6 +15,7 @@ router.get("/:id", RestaurantController.retrieve);
 router.get("/:id/menu/", MenuController.list);
 
 router.use(authMiddleware);
+router.get("/", RestaurantController.list);
 router.post("/", RestaurantController.create);
 router.put("/:id", [restaurantMiddleware], RestaurantController.update);
 router.delete("/:id", [restaurantMiddleware], RestaurantController.delete);

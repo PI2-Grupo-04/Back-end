@@ -14,10 +14,10 @@ const MenuSchema = new Schema(
 );
 
 MenuSchema.pre(
-  "deleteOne",
+  "findOneAndDelete",
   { document: false, query: true },
   async function (next) {
-    const id = this.getFilter()["id"];
+    const id = this.getFilter()["_id"];
     const restaurant = await Restaurant.findOne({ menus: { _id: id } });
     restaurant.menus = restaurant.menus.filter((item) => item != id);
     restaurant.save();

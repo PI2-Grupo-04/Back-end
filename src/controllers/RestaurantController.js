@@ -13,6 +13,16 @@ class RestaruantController {
     });
   };
 
+  list = async (req, res) => {
+    const user = await req.user.populate("restaurants");
+
+    return res.json({
+      status: "success",
+      data: user.restaurants,
+      message: null,
+    });
+  };
+
   create = async (req, res) => {
     const { name } = req.body;
     const user = req.user;
